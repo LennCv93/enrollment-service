@@ -8,6 +8,8 @@ import pe.tecsup.project.lms.enrollment_service.infrastructure.persistence.entit
 import pe.tecsup.project.lms.enrollment_service.infrastructure.persistence.mapper.EnrollmentMapper;
 import pe.tecsup.project.lms.enrollment_service.infrastructure.persistence.repository.EnrollmentJpaRepository;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class EnrollmentRepositoryAdapter implements EnrollmentRepository {
@@ -19,5 +21,14 @@ public class EnrollmentRepositoryAdapter implements EnrollmentRepository {
         EnrollmentEntity entity = enrollmentJpaRepository.save(EnrollmentMapper.toEntity(enrollment));
 
         return EnrollmentMapper.toDomain(entity);
+    }
+
+    @Override
+    public Enrollment findById(Long id) {
+        Optional<EnrollmentEntity> entity = enrollmentJpaRepository.findById(id);
+
+        if (entity.isEmpty()) throw new IllegalArgumentException("Enrollment " + id + "not found");
+
+        return EnrollmentMapper.toDomain(entity.get());
     }
 }
