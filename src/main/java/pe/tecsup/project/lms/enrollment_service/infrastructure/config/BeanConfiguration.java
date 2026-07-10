@@ -7,12 +7,13 @@ import pe.tecsup.project.lms.enrollment_service.application.port.outbound.Extern
 import pe.tecsup.project.lms.enrollment_service.application.port.outbound.ExternalUserClient;
 import pe.tecsup.project.lms.enrollment_service.application.usecases.CreateEnrollmentUseCase;
 import pe.tecsup.project.lms.enrollment_service.domain.repository.EnrollmentRepository;
+import pe.tecsup.project.lms.enrollment_service.infrastructure.kafka.EnrollmentProducer;
 
 @Configuration
 public class BeanConfiguration {
 
     @Bean
-    public CreateEnrollmentUseCase createEnrollmentUseCase (ExternalUserClient externalUserClient, ExternalCourseClient externalCourseClient, EnrollmentRepository enrollmentRepository) {
-        return new CreateEnrollmentUseCaseImpl(externalUserClient, externalCourseClient, enrollmentRepository);
+    public CreateEnrollmentUseCase createEnrollmentUseCase (ExternalUserClient externalUserClient, ExternalCourseClient externalCourseClient, EnrollmentRepository enrollmentRepository, EnrollmentProducer enrollmentProducer) {
+        return new CreateEnrollmentUseCaseImpl(externalUserClient, externalCourseClient, enrollmentRepository, enrollmentProducer);
     }
 }
