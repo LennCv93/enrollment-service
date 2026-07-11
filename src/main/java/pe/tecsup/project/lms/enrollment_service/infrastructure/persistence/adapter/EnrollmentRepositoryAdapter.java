@@ -8,6 +8,7 @@ import pe.tecsup.project.lms.enrollment_service.infrastructure.persistence.entit
 import pe.tecsup.project.lms.enrollment_service.infrastructure.persistence.mapper.EnrollmentMapper;
 import pe.tecsup.project.lms.enrollment_service.infrastructure.persistence.repository.EnrollmentJpaRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -30,5 +31,20 @@ public class EnrollmentRepositoryAdapter implements EnrollmentRepository {
         if (entity.isEmpty()) throw new IllegalArgumentException("Enrollment " + id + "not found");
 
         return EnrollmentMapper.toDomain(entity.get());
+    }
+
+    @Override
+    public Enrollment update(Long id, String status) {
+        Optional<EnrollmentEntity> entity = enrollmentJpaRepository.findById(id);
+
+        if (entity.isEmpty()) throw new IllegalArgumentException("Enrollment " + id + "not found");
+
+        EnrollmentEntity enrollmentEntity = entity.get();
+        enrollmentEntity.status = status;
+        enrollmentEntity.updatedAt = LocalDateTime.now();
+
+        EnrollmentEntity entityUpdated = enrollmentJpaRepository.save(enrollmentEntity);
+
+        return EnrollmentMapper.toDomain(entityUpdated);
     }
 }

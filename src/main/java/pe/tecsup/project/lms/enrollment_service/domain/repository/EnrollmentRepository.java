@@ -7,4 +7,6 @@ public interface EnrollmentRepository {
     Enrollment save(Enrollment enrollment);
 
     Enrollment findById(Long id);
+
+    Enrollment update(Long id, String status);
 }

@@ -15,7 +15,6 @@ import pe.tecsup.project.lms.enrollment_service.infrastructure.kafka.EnrollmentE
 import pe.tecsup.project.lms.enrollment_service.infrastructure.kafka.EnrollmentProducer;
 import pe.tecsup.project.lms.enrollment_service.infrastructure.kafka.KafkaEvents;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @RequiredArgsConstructor
